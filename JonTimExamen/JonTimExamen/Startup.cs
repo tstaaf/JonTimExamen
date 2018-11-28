@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using JonTimExamen.Data;
 using JonTimExamen.Models;
 
-namespace WebTentamen
+namespace JonTimExamen
 {
     public class Startup
     {
@@ -22,11 +22,11 @@ namespace WebTentamen
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WebDbContext>(options =>
-               options.UseSqlite("Data Source=WebTentamen.db"));
+               options.UseSqlite("Data Source=Examen.db"));
 
             services.AddMvc();
 
@@ -35,7 +35,6 @@ namespace WebTentamen
                 .AddDefaultTokenProviders();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

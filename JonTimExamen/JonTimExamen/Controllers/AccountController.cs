@@ -8,7 +8,7 @@ using JonTimExamen.Data;
 using JonTimExamen.Models;
 
 
-namespace WebTentamen.Controllers
+namespace JonTimExamen.Controllers
 {
     public class AccountController : Controller
     {
