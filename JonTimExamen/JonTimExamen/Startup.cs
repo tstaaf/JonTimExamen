@@ -4,10 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using JonTimExamen.Data;
+using JonTimExamen.Models;
 
-namespace JonTimExamen
+namespace WebTentamen
 {
     public class Startup
     {
@@ -21,7 +25,14 @@ namespace JonTimExamen
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WebDbContext>(options =>
+               options.UseSqlite("Data Source=WebTentamen.db"));
+
             services.AddMvc();
+
+            services.AddIdentity<Employee, IdentityRole>()
+                .AddEntityFrameworkStores<WebDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +49,8 @@ namespace JonTimExamen
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
