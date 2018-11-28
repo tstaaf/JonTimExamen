@@ -8,7 +8,7 @@ using JonTimExamen.Data;
 using JonTimExamen.Models;
 
 
-namespace JonTimExamen.Controllers
+namespace WebTentamen.Controllers
 {
     public class AccountController : Controller
     {
@@ -23,6 +23,17 @@ namespace JonTimExamen.Controllers
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
+
+            Employee employee = new Employee
+            {
+                Email = "timmy@gmail.com",
+                UserName = "Kimmy"
+            };
+
+            db.SaveChanges();
         }
-    }
+     
+
+
+}
 }
