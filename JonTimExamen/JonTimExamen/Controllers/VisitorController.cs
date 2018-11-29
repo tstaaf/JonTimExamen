@@ -1,6 +1,7 @@
 ﻿using JonTimExamen.Models;
 using JonTimExamen.Data;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using Microsoft.AspNetCore.Identity;
 
 namespace JonTimExamen.Controllers
@@ -23,6 +24,7 @@ namespace JonTimExamen.Controllers
         public IActionResult Create(Visitor visitor)
         {
             db.Visitor.Add(visitor);
+            visitor.CheckInTime = DateTime.Now;
 
             db.SaveChanges();
 
