@@ -22,5 +22,13 @@ namespace JonTimExamen.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Create(Visitor visitor)
+        {
+            db.Visitor.Add(visitor);
+
+            return RedirectToAction("Index");
+        }
     }
 }
