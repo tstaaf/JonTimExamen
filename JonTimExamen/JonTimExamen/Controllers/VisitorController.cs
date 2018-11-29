@@ -9,15 +9,12 @@ namespace JonTimExamen.Controllers
     {
         private WebDbContext db;
 
-
-
         public VisitorController(WebDbContext db)
         {
             this.db = db;
         }
 
         public IActionResult Index()
-
         {
             return View();
         }
@@ -26,6 +23,8 @@ namespace JonTimExamen.Controllers
         public IActionResult Create(Visitor visitor)
         {
             db.Visitor.Add(visitor);
+
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
