@@ -32,8 +32,6 @@ namespace JonTimExamen.Controllers
             r.NextBytes(buffer);
             visitor.RandomNumber = BitConverter.ToString(buffer);
 
-            Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
-            visitor.RandomNumber = qrcode.Draw(visitor.RandomNumber, 50);
 
             db.SaveChanges();
 
