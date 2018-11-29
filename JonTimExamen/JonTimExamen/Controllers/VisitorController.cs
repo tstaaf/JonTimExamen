@@ -2,6 +2,7 @@
 using JonTimExamen.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Drawing;
 using Microsoft.AspNetCore.Identity;
 
 namespace JonTimExamen.Controllers
@@ -30,6 +31,9 @@ namespace JonTimExamen.Controllers
             Random r = new Random();
             r.NextBytes(buffer);
             visitor.RandomNumber = BitConverter.ToString(buffer);
+
+            Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
+            visitor.RandomNumber = qrcode.Draw(visitor.RandomNumber, 50);
 
             db.SaveChanges();
 
