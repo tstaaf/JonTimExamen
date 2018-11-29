@@ -8,13 +8,12 @@ namespace JonTimExamen.Controllers
     public class VisitorController : Controller
     {
         private WebDbContext db;
-        private UserManager<Visitor> userManager;
 
 
-        public VisitorController(WebDbContext db, UserManager<Visitor> userManager)
+
+        public VisitorController(WebDbContext db)
         {
             this.db = db;
-            this.userManager = userManager;
         }
 
         public IActionResult Index()
