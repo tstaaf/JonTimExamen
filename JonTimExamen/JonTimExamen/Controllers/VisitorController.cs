@@ -22,7 +22,7 @@ namespace JonTimExamen.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Visitor visitor)
+        public IActionResult CheckIn(Visitor visitor)
         {
             db.Visitor.Add(visitor);
             visitor.CheckInTime = DateTime.Now;
@@ -32,6 +32,16 @@ namespace JonTimExamen.Controllers
             r.NextBytes(buffer);
             visitor.RandomNumber = BitConverter.ToString(buffer);
 
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult CheckOut(Visitor visitor)
+        {
+            visitor.CheckOutTime = DateTime.Now;
 
             db.SaveChanges();
 
