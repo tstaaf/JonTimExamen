@@ -3,6 +3,8 @@ using JonTimExamen.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Drawing;
+using System.Linq;
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
 
 namespace JonTimExamen.Controllers
@@ -17,6 +19,11 @@ namespace JonTimExamen.Controllers
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult CheckOut()
         {
             return View();
         }
@@ -41,7 +48,11 @@ namespace JonTimExamen.Controllers
         [HttpPost]
         public IActionResult CheckOut(Visitor visitor)
         {
-            visitor.CheckOutTime = DateTime.Now;
+
+            string rnum = Request.Form["RandomNumberInput"];
+            // var visitorId = db.Visitor.OrderByDescending(v => v.RandomNumber).Select(v => v.RandomNumber).FirstOrDefault();
+            var itemToEdit = db.Visitor.SingleOrDefault(x => x.RandomNumber == rnum);
+            itemToEdit.CheckOutTime = DateTime.Now;
 
             db.SaveChanges();
 

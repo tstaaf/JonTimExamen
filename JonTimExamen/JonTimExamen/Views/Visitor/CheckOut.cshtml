@@ -9,7 +9,11 @@
 
             <div class="form-group">
                 <label asp-for="@Model.RandomNumber"></label>
-                <input asp-for="@Model.RandomNumber" class="form-control" />
+                <input asp-for="@Model.RandomNumber" class="form-control" name="RandomNumberInput" id="RandomNumberInput" runat="server" />
+            </div>
+
+            <div class="form-group">
+                <label name="ErrorLabel"></label>
             </div>
 
             <div class="form-group">
