@@ -4,8 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Drawing;
 using System.Linq;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+using ZXing.QrCode;
+using System.Drawing;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
+using System.IO;
 
 namespace JonTimExamen.Controllers
 {
@@ -31,6 +35,7 @@ namespace JonTimExamen.Controllers
         [HttpPost]
         public IActionResult CheckIn(Visitor visitor)
         {
+            ViewBag.visitor = visitor;
             db.Visitor.Add(visitor);
             visitor.CheckInTime = DateTime.Now;
 
@@ -38,7 +43,6 @@ namespace JonTimExamen.Controllers
             Random r = new Random();
             r.NextBytes(buffer);
             visitor.RandomNumber = BitConverter.ToString(buffer);
-
 
             db.SaveChanges();
 

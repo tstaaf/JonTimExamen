@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "QrView";
+}
+
+<body>
+    <div class="row">
+        @if (@visitor != null)
+        {
+        <qrcode content="@visitor" width="200" height="200"/>
+        }
+    </div>
+</body>
+
