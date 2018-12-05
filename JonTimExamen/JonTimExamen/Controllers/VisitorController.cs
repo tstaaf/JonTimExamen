@@ -35,7 +35,7 @@ namespace JonTimExamen.Controllers
         [HttpPost]
         public IActionResult CheckIn(Visitor visitor)
         {
-            ViewBag.visitor = visitor;
+            
             db.Visitor.Add(visitor);
             visitor.CheckInTime = DateTime.Now;
 
@@ -44,9 +44,11 @@ namespace JonTimExamen.Controllers
             r.NextBytes(buffer);
             visitor.RandomNumber = BitConverter.ToString(buffer);
 
+            ViewBag.visitor = visitor;
+
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return View("Index");
         }
 
         [HttpPost]
