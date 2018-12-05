@@ -67,7 +67,7 @@ namespace JonTimExamen.Controllers
                 return RedirectToAction("Index");
             }
 
-    db.SaveChanges();
+            db.SaveChanges();
 
 
             return RedirectToAction("Index");
