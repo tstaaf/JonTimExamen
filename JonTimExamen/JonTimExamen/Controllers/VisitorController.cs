@@ -52,9 +52,19 @@ namespace JonTimExamen.Controllers
             string rnum = Request.Form["RandomNumberInput"];
             // var visitorId = db.Visitor.OrderByDescending(v => v.RandomNumber).Select(v => v.RandomNumber).FirstOrDefault();
             var itemToEdit = db.Visitor.SingleOrDefault(x => x.RandomNumber == rnum);
-            itemToEdit.CheckOutTime = DateTime.Now;
 
-            db.SaveChanges();
+            if (itemToEdit.CheckInTime > itemToEdit.CheckOutTime)
+            {
+                itemToEdit.CheckOutTime = DateTime.Now;
+            }
+
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+    db.SaveChanges();
+
 
             return RedirectToAction("Index");
         }
