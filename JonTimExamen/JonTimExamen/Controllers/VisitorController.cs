@@ -10,6 +10,8 @@ using System.Drawing;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace JonTimExamen.Controllers
 {
@@ -74,5 +76,13 @@ namespace JonTimExamen.Controllers
 
             return RedirectToAction("Index");
         }
+
+            public IActionResult History(Visitor visitor)
+            {
+                List<Visitor> model = db.Visitor
+                .ToList();
+
+                return View(model);
+            }
+        }
     }
-}
