@@ -79,12 +79,12 @@ namespace JonTimExamen.Controllers
         }
         [Authorize]
         public IActionResult History(Visitor visitor)
-            {
-                List<Visitor> model = db.Visitor
+        {
+            List<Visitor> model = db.Visitor
                 .ToList();
 
                 return View(model);
-            }
+        }
 
 
         [Authorize]
