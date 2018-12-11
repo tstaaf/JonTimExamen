@@ -9,9 +9,7 @@
     if (visitor.CheckInTime < visitor.CheckOutTime)
     {
         <hr />
-        <p>
         <p asp-controller="Visitor" asp-action="History" asp-route-id="@visitor.Id"> @visitor.FirstName   @visitor.LastName   @visitor.RandomNumber  @visitor.CheckInTime - @visitor.CheckOutTime</p>
-        </p>
     }
 }
 
@@ -21,9 +19,7 @@
     if (visitor.CheckInTime > visitor.CheckOutTime)
     {
         <hr />
-        <p>
         <p asp-controller="Visitor" asp-action="History" asp-route-id="@visitor.Id"> @visitor.FirstName   @visitor.LastName   @visitor.RandomNumber  @visitor.CheckInTime</p>
-        </p>
     }
 }
 

@@ -1,12 +1,14 @@
-﻿@{
+﻿@model Employee
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="row">
-    <div class="col-md-6"  style="text-align:center;">
+    <div class="col-md-6" style="text-align:center;">
         <a class="btn" asp-area="" asp-controller="Visitor" asp-action="Index">
             <p style="">Check in</p>
-            <img class="img-responsive" src="images/meeting.jpg" style="border: 1px solid; height: 250px; width: 350px;"/>
+            <img class="img-responsive" src="images/meeting.jpg" style="border: 1px solid; height: 250px; width: 350px;" />
         </a>
     </div>
 
@@ -17,8 +19,21 @@
         </a>
     </div>
 
+
     <div class="col-md-1" style="text-align:center; height: 50px;  position: absolute; right: 15px; top: 10px;">
-        <a class="btn btn-success" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+        @{
+            if (Model == null)
+            {
+
+                <a class="btn btn-success" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+
+            }
+
+            else
+            {
+                <a asp-controller="Account" asp-action="LogOut" class="btn btn-success">Log Out</a>
+            }
+        }
     </div>
-    
 </div>
+            </div>
