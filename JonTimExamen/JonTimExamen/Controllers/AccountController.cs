@@ -55,7 +55,7 @@ namespace JonTimExamen.Controllers
                 return View();
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("History", "Visitor");
         }
 
         [HttpPost]
