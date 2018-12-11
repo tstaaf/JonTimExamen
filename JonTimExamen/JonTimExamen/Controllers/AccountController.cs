@@ -30,6 +30,7 @@ namespace JonTimExamen.Controllers
             db.SaveChanges();
         }
 
+
         public IActionResult Login()
         {
             return View();
@@ -74,6 +75,14 @@ namespace JonTimExamen.Controllers
             }
 
             return RedirectToAction("Login");
+        }
+
+
+        public async Task<IActionResult> LogOut()
+        {
+            await signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
         }
 
     }
