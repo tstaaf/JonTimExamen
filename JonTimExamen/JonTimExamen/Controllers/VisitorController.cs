@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JonTimExamen.Controllers
 {
@@ -76,8 +77,8 @@ namespace JonTimExamen.Controllers
 
             return RedirectToAction("Index");
         }
-
-            public IActionResult History(Visitor visitor)
+        [Authorize]
+        public IActionResult History(Visitor visitor)
             {
                 List<Visitor> model = db.Visitor
                 .ToList();
