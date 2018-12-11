@@ -5,32 +5,36 @@
 
 <div class="row">
 
-        <div class="col-md-6">
-            <div class="vertical-menu">
-                <a href="@Url.Action("History", "Visitor")">
-                    <span>History</span>
-                </a>
-                <a href="@Url.Action("CurrentVisitors", "Visitor")" class="active">
-                    <span>Current Visitors</span>
-                </a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-                <a asp-controller="Account" asp-action="LogOut">Log Out</a>
-            </div>
+    <div class="col-md-6">
+        <div class="vertical-menu">
+            <a href="@Url.Action("History", "Visitor")">
+                <span>History</span>
+            </a>
+            <a href="@Url.Action("CurrentVisitors", "Visitor")" class="active">
+                <span>Current Visitors</span>
+            </a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+            <a href="@Url.Action("LogOut", "Account")">Log Out</a>
         </div>
+    </div>
 
-        <div class="col-md-6">        
-                    <p style="font-size: 20px"><b>Visitors checked in now</b></p>
-                    @foreach (Visitor visitor in Model)
-                    {
-                        if (visitor.CheckInTime > visitor.CheckOutTime)
-                        {
-                            <p> Name: @visitor.FirstName @visitor.LastName</p>
-                            <p> Id: @visitor.RandomNumber</p>
-                            <p> Check In: @visitor.CheckInTime </p>
-                            <hr />
-                        }
-                    }
+    <div class="col-md-6">
+        <p style="font-size: 20px">
+            <b>Visitors checked in now</b>
+        </p>
+        @foreach (Visitor visitor in Model)
+        {
+            if (visitor.CheckInTime > visitor.CheckOutTime)
+            {
+                <p> Name: @visitor.FirstName @visitor.LastName</p>
+                <p> Id: @visitor.RandomNumber</p>
+                <p> Check In: @visitor.CheckInTime </p>
+                <a href="@Url.Action("CheckOut", "Visitor")">Check out</a>
+                <hr/>
+            }
+        }
 
-        </div>
+
+    </div>
 </div>
