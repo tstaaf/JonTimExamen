@@ -30,7 +30,7 @@
                 <p> Name: @visitor.FirstName @visitor.LastName</p>
                 <p> Id: @visitor.RandomNumber</p>
                 <p> Check In: @visitor.CheckInTime </p>
-                <a href="@Url.Action("CheckOut", "Visitor")">Check out</a>
+                @Html.ActionLink("Check out", "CheckOut", "Visitor", visitor.RandomNumber, null)
                 <hr/>
             }
         }

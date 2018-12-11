@@ -22,16 +22,14 @@
 
     <div class="col-md-1" style="text-align:center; height: 50px;  position: absolute; right: 15px; top: 10px;">
         @{
-            if (Model == null)
+            if (User.Identity.IsAuthenticated)
             {
-
-                <a class="btn btn-success" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-
+                <a asp-controller="Visitor" asp-action="History" class="btn btn-success">Settings</a>
             }
 
             else
             {
-                <a asp-controller="Visitor" asp-action="History" class="btn btn-success">Settings</a>
+                <a class="btn btn-success" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
             }
         }
     </div>

@@ -30,7 +30,7 @@
         </form>
 
         @{
-            if (User.Identity.IsAuthenticated)
+            if (ViewBag.visitor != null)
             {
                 var name = ViewBag.visitor.FirstName;
                 var lastName = ViewBag.visitor.LastName;
