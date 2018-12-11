@@ -3,23 +3,32 @@
     ViewData["Title"] = "History";
 }
 
-<p><b>Visitor history</b></p>
-@foreach (Visitor visitor in Model)
-{
-    if (visitor.CheckInTime < visitor.CheckOutTime)
-    {
-        <hr />
-        <p asp-controller="Visitor" asp-action="History" asp-route-id="@visitor.Id"> @visitor.FirstName   @visitor.LastName   @visitor.RandomNumber  @visitor.CheckInTime - @visitor.CheckOutTime</p>
-    }
-}
-
-<p><b>Visitors checked in now</b></p>
-@foreach (Visitor visitor in Model)
-{
-    if (visitor.CheckInTime > visitor.CheckOutTime)
-    {
-        <hr />
-        <p asp-controller="Visitor" asp-action="History" asp-route-id="@visitor.Id"> @visitor.FirstName   @visitor.LastName   @visitor.RandomNumber  @visitor.CheckInTime</p>
-    }
-}
-
+<div class="row">
+    <div class="col-md-6">
+        <p style="font-size: 20px;"><b>Visitor history</b></p>
+        @foreach (Visitor visitor in Model)
+        {
+            if (visitor.CheckInTime < visitor.CheckOutTime)
+            {
+                <p> Name: @visitor.FirstName @visitor.LastName</p>
+                <p> Id: @visitor.RandomNumber</p>
+                <p> Check In: @visitor.CheckInTime </p>
+                <p> Check Out: @visitor.CheckOutTime </p>
+                <hr/>
+            }
+        }
+    </div>
+    <div class="col-md-6">
+        <p style="font-size: 20px"><b>Visitors checked in now</b></p>
+        @foreach (Visitor visitor in Model)
+        {
+            if (visitor.CheckInTime > visitor.CheckOutTime)
+            {
+                <p> Name: @visitor.FirstName @visitor.LastName</p>
+                <p> Id: @visitor.RandomNumber</p>
+                <p> Check In: @visitor.CheckInTime </p>
+                <hr />
+            }
+        }
+    </div>
+</div>
