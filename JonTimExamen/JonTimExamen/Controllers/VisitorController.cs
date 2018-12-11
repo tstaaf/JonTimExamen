@@ -85,5 +85,15 @@ namespace JonTimExamen.Controllers
 
                 return View(model);
             }
+
+
+        [Authorize]
+        public IActionResult CurrentVisitors(Visitor visitor)
+        {
+            List<Visitor> model = db.Visitor
+            .ToList();
+
+            return View(model);
         }
+    }
     }
