@@ -75,7 +75,7 @@ namespace JonTimExamen.Controllers
             db.SaveChanges();
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
         [Authorize]
         public IActionResult History(Visitor visitor)
