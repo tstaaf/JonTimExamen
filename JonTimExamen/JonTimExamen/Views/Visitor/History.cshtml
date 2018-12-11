@@ -5,6 +5,19 @@
 
 <div class="row">
     <div class="col-md-6">
+        <div class="vertical-menu">
+            <a href="@Url.Action("History", "Visitor")" class="active">
+                <span>History</span>
+            </a>
+            <a href="@Url.Action("CurrentVisitors", "Visitor")">
+                <span>Current Visitors</span>
+            </a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+            <a href="#">Link 4</a>
+        </div>
+    </div>
+    <div class="col-md-6">
         <p style="font-size: 20px;"><b>Visitor history</b></p>
         @foreach (Visitor visitor in Model)
         {
@@ -14,21 +27,9 @@
                 <p> Id: @visitor.RandomNumber</p>
                 <p> Check In: @visitor.CheckInTime </p>
                 <p> Check Out: @visitor.CheckOutTime </p>
-                <hr/>
-            }
-        }
-    </div>
-    <div class="col-md-6">
-        <p style="font-size: 20px"><b>Visitors checked in now</b></p>
-        @foreach (Visitor visitor in Model)
-        {
-            if (visitor.CheckInTime > visitor.CheckOutTime)
-            {
-                <p> Name: @visitor.FirstName @visitor.LastName</p>
-                <p> Id: @visitor.RandomNumber</p>
-                <p> Check In: @visitor.CheckInTime </p>
                 <hr />
             }
         }
     </div>
+
 </div>
