@@ -3,34 +3,53 @@
     ViewData["Title"] = "CheckIn";
 }
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <form method="post" asp-controller="Visitor" asp-action="CheckIn">
 
-            <div class="form-group">
-                <label asp-for="@Model.FirstName"></label>
-                <input asp-for="@Model.FirstName" class="form-control" required="required" />
+@if (User.Identity.IsAuthenticated)
+{
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="vertical-menu">
+                <a href="@Url.Action("History", "Visitor")">
+                    <span>History</span>
+                </a>
+                <a href="@Url.Action("CurrentVisitors", "Visitor")">
+                    <span>Current Visitors</span>
+                </a>
+                <a href="@Url.Action("Index", "Visitor")" class="active">
+                    <span>Check in visitor</span>
+                </a>
+                <a href="#">Link 3</a>
+                <a href="#">Link 4</a>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="@Model.LastName"></label>
-                <input asp-for="@Model.LastName" class="form-control" required="required" />
-            </div>
+        <div class="col-md-6">
+            <form method="post" asp-controller="Visitor" asp-action="CheckIn">
 
-            <div class="form-group">
-                <label asp-for="@Model.Company"></label>
-                <input asp-for="@Model.Company" class="form-control" />
-            </div>
+                <div class="form-group">
+                    <label asp-for="@Model.FirstName"></label>
+                    <input asp-for="@Model.FirstName" class="form-control" required="required" />
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="Check In" class="btn btn-success center-block" />
-            </div>
+                <div class="form-group">
+                    <label asp-for="@Model.LastName"></label>
+                    <input asp-for="@Model.LastName" class="form-control" required="required" />
+                </div>
 
+                <div class="form-group">
+                    <label asp-for="@Model.Company"></label>
+                    <input asp-for="@Model.Company" class="form-control" />
+                </div>
 
-        </form>
+                <div class="form-group">
+                    <input type="submit" value="Check In" class="btn btn-success center-block" />
+                </div>
+            </form>
+        </div>
 
-        @{
-            if (ViewBag.visitor != null)
+        <div class="col-md-6 col-md-offset-6">
+            @if (ViewBag.visitor != null)
             {
                 var name = ViewBag.visitor.FirstName;
                 var lastName = ViewBag.visitor.LastName;
@@ -40,9 +59,55 @@
                 <p><b>@name  @lastName</b></p>
                 <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
                 <p><b>@number</b></p>
-             }
-         }
-
+            }
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form method="post" asp-controller="Visitor" asp-action="CheckIn">
+
+                <div class="form-group">
+                    <label asp-for="@Model.FirstName"></label>
+                    <input asp-for="@Model.FirstName" class="form-control" required="required" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.LastName"></label>
+                    <input asp-for="@Model.LastName" class="form-control" required="required" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="@Model.Company"></label>
+                    <input asp-for="@Model.Company" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Check In" class="btn btn-success center-block" />
+                </div>
+
+
+            </form>
+        </div>
+
+        <div class="col-md-6 col-md-offset-3">
+            @if (ViewBag.visitor != null)
+            {
+                var name = ViewBag.visitor.FirstName;
+                var lastName = ViewBag.visitor.LastName;
+                var company = ViewBag.visitor.Company;
+                var number = ViewBag.visitor.RandomNumber;
+
+                <p><b>@name  @lastName</b></p>
+                <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
+                <p><b>@number</b></p>
+            }
+        </div>
+    </div>
+}
+
+
+
 
