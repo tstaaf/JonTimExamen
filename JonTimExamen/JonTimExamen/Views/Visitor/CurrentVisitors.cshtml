@@ -34,7 +34,7 @@
                 using(Html.BeginForm("CheckOut","Visitor"))
                 {
                     <input type="hidden" name="RandomNumberInput" value="@visitor.RandomNumber" />
-                    <input type="submit" value="CheckOut" />
+                    <input class="btn btn-xs btn-danger" type="submit" value="Check out this visitor" />
                 }
                 <hr/>
             }
