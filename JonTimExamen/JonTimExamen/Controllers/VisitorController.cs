@@ -49,12 +49,12 @@ namespace JonTimExamen.Controllers
         [HttpPost]
         public IActionResult CheckOut(Visitor visitor)
         {
-
             string rnum = Request.Form["RandomNumberInput"];
+            ViewData["rnum"] = rnum;
             // var visitorId = db.Visitor.OrderByDescending(v => v.RandomNumber).Select(v => v.RandomNumber).FirstOrDefault();
             var itemToEdit = db.Visitor.SingleOrDefault(x => x.RandomNumber == rnum);
 
-            if (itemToEdit.CheckInTime > itemToEdit.CheckOutTime)
+                if (itemToEdit.CheckInTime > itemToEdit.CheckOutTime)
             {
                 itemToEdit.CheckOutTime = DateTime.Now;
             }

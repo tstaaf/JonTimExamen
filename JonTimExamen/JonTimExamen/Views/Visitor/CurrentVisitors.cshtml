@@ -31,7 +31,11 @@
                 <p> Name: @visitor.FirstName @visitor.LastName</p>
                 <p> Id: @visitor.RandomNumber</p>
                 <p> Check In: @visitor.CheckInTime </p>
-                @Html.ActionLink("Check out", "CheckOut", "Visitor", new {id=visitor.RandomNumber}, null)
+                using(Html.BeginForm("CheckOut","Visitor"))
+                {
+                    <input type="hidden" name="RandomNumberInput" value="@visitor.RandomNumber" />
+                    <input type="submit" value="CheckOut" />
+                }
                 <hr/>
             }
         }
