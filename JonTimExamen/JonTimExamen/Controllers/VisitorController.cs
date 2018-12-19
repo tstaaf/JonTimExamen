@@ -64,7 +64,13 @@ namespace JonTimExamen.Controllers
                 return RedirectToAction("Index");
             }
 
+
             db.SaveChanges();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("CurrentVisitors");
+            }
 
 
             return RedirectToAction("Index", "Home");
