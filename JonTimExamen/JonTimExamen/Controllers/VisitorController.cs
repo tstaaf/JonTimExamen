@@ -2,15 +2,7 @@
 using JonTimExamen.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Drawing;
 using System.Linq;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using ZXing.QrCode;
-using System.Drawing;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Identity;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 
@@ -51,7 +43,7 @@ namespace JonTimExamen.Controllers
 
             db.SaveChanges();
 
-            return View("Index");
+            return View("QrView");
         }
 
         [HttpPost]
@@ -94,6 +86,11 @@ namespace JonTimExamen.Controllers
             .ToList();
 
             return View(model);
+        }
+
+        public IActionResult Print()
+        {
+            return RedirectToAction("Index", "Home");
         }
     }
     }
