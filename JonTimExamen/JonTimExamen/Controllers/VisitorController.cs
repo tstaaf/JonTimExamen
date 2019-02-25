@@ -5,15 +5,20 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace JonTimExamen.Controllers
 {
     public class VisitorController : Controller
     {
         private WebDbContext db;
+        private readonly IHostingEnvironment _environment;
 
-        public VisitorController(WebDbContext db)
+        public VisitorController(WebDbContext db, IHostingEnvironment hostingEnvironment)
         {
+            _environment = hostingEnvironment;
             this.db = db;
         }
 
@@ -99,9 +104,48 @@ namespace JonTimExamen.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Capture()
+        public IActionResult Capture(string name, Visitor visitor)
         {
-            return View();
+            var pictures = HttpContext.Request.Form.Files;
+            if (pictures != null)
+            {
+                foreach (var picture in pictures)
+                {
+                    if(picture.Length > 0)
+                    {
+                        var pictureName = picture.FileName;
+                        var uniquePictureName = visitor.RandomNumber;
+                        var pictureExtension = Path.GetExtension(pictureName);
+
+                        var finalPictureName = string.Concat(pictureName, uniquePictureName);
+                        var filePath = Path.Combine(_environment.WebRootPath, "visitorPhotos") + $@"\{finalPictureName}";
+
+                        if (!string.IsNullOrEmpty(filePath))
+                        {
+                            StoreInFolder(picture, filePath);
+                        }
+
+                        var pictureBytes = System.IO.File.ReadAllBytes(filePath);
+                        //if(pictureBytes != null)
+                        //{
+                        //    StoreInDatabase(pictureBytes);
+                        //}
+                    }
+                }
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+        }
+        private void StoreInFolder(IFormFile picture, string pictureName)
+        {
+            using (FileStream fs = System.IO.File.Create(pictureName))
+            {
+                picture.CopyTo(fs);
+                fs.Flush();
+            }
         }
     }
 }
