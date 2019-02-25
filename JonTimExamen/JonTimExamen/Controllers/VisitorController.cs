@@ -98,5 +98,10 @@ namespace JonTimExamen.Controllers
         {
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult Capture()
+        {
+            return View();
+        }
     }
 }
