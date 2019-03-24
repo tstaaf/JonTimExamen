@@ -35,7 +35,7 @@ namespace JonTimExamen.Controllers
         [HttpPost]
         public IActionResult CheckIn(Visitor visitor)
         {
-            
+
             db.Visitor.Add(visitor);
             visitor.CheckInTime = DateTime.Now;
 
@@ -46,9 +46,52 @@ namespace JonTimExamen.Controllers
 
             ViewBag.visitor = visitor;
 
+
+            var pictures = HttpContext.Request.Form.Files;
+            if (pictures != null)
+            {
+                foreach (var picture in pictures)
+                {
+                    if (picture.Length > 0)
+                    {
+                        var pictureName = picture.FileName;
+                        var uniquePictureName = Convert.ToString(Guid.NewGuid());
+                        var pictureExtension = Path.GetExtension(pictureName);
+
+                        var finalPictureName = string.Concat(uniquePictureName, pictureExtension);
+                        var filePath = Path.Combine(_environment.WebRootPath, "visitorPhotos") + $@"\{finalPictureName}";
+
+                        if (!string.IsNullOrEmpty(filePath))
+                        {
+                            StoreInFolder(picture, filePath);
+                        }
+
+                        // var pictureBytes = System.IO.File.ReadAllBytes(filePath);
+                        //if(pictureBytes != null)
+                        //{
+                        //    StoreInDatabase(pictureBytes);
+                        //}
+                    }
+                }
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
+
             db.SaveChanges();
 
             return View("QrView");
+        }
+
+        private void StoreInFolder(IFormFile picture, string pictureName)
+        {
+            using (FileStream fs = System.IO.File.Create(pictureName))
+            {
+                picture.CopyTo(fs);
+                fs.Flush();
+            }
         }
 
         [HttpPost]
@@ -59,7 +102,7 @@ namespace JonTimExamen.Controllers
             // var visitorId = db.Visitor.OrderByDescending(v => v.RandomNumber).Select(v => v.RandomNumber).FirstOrDefault();
             var itemToEdit = db.Visitor.SingleOrDefault(x => x.RandomNumber == rnum);
 
-                if (itemToEdit.CheckInTime > itemToEdit.CheckOutTime)
+            if (itemToEdit.CheckInTime > itemToEdit.CheckOutTime)
             {
                 itemToEdit.CheckOutTime = DateTime.Now;
             }
@@ -86,7 +129,7 @@ namespace JonTimExamen.Controllers
             List<Visitor> model = db.Visitor
                 .ToList();
 
-                return View(model);
+            return View(model);
         }
 
 
@@ -104,48 +147,10 @@ namespace JonTimExamen.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Capture(string name, Visitor visitor)
+        [HttpGet]
+        public IActionResult Capture()
         {
-            var pictures = HttpContext.Request.Form.Files;
-            if (pictures != null)
-            {
-                foreach (var picture in pictures)
-                {
-                    if(picture.Length > 0)
-                    {
-                        var pictureName = picture.FileName;
-                        var uniquePictureName = visitor.RandomNumber;
-                        var pictureExtension = Path.GetExtension(pictureName);
-
-                        var finalPictureName = string.Concat(pictureName, uniquePictureName);
-                        var filePath = Path.Combine(_environment.WebRootPath, "visitorPhotos") + $@"\{finalPictureName}";
-
-                        if (!string.IsNullOrEmpty(filePath))
-                        {
-                            StoreInFolder(picture, filePath);
-                        }
-
-                        var pictureBytes = System.IO.File.ReadAllBytes(filePath);
-                        //if(pictureBytes != null)
-                        //{
-                        //    StoreInDatabase(pictureBytes);
-                        //}
-                    }
-                }
-                return Json(true);
-            }
-            else
-            {
-                return Json(false);
-            }
-        }
-        private void StoreInFolder(IFormFile picture, string pictureName)
-        {
-            using (FileStream fs = System.IO.File.Create(pictureName))
-            {
-                picture.CopyTo(fs);
-                fs.Flush();
-            }
+            return View();
         }
     }
 }

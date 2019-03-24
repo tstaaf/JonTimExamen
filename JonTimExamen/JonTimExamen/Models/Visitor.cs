@@ -18,6 +18,7 @@ namespace JonTimExamen.Models
         public virtual DateTime CheckInTime { get; set; }
         public virtual DateTime CheckOutTime { get; set; }
         public virtual string RandomNumber { get; set; }
+        public string ImageBase64String { get; set; }
 
     }
 }
