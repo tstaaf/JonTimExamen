@@ -12,8 +12,7 @@ function takePicture() {
     Webcam.snap(function (data_uri) {
         document.getElementById('results').innerHTML = '<img src="' + data_uri + '"/>';
 
-        Webcam.upload(data_uri, function (code, text) {
-            alert('Photo Captured');
-        });
-    });
+        Webcam.upload(data_uri, '/Visitor/Checkin')
+            });
+
 }

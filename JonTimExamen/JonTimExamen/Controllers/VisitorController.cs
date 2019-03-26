@@ -33,7 +33,7 @@ namespace JonTimExamen.Controllers
         }
 
         [HttpPost]
-        public IActionResult CheckIn(Visitor visitor)
+        public IActionResult CheckIn(Visitor visitor, string name)
         {
 
             db.Visitor.Add(visitor);
@@ -73,13 +73,7 @@ namespace JonTimExamen.Controllers
                         //}
                     }
                 }
-                return Json(true);
             }
-            else
-            {
-                return Json(false);
-            }
-
             db.SaveChanges();
 
             return View("QrView");
