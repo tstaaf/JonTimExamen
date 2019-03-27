@@ -1,12 +1,12 @@
 ﻿@model Visitor
 @{
-
+    ViewData["Title"] = "Capture";
 }
 
-<div class="row">
+<div class="row" id="pic">
     <div class="col-md-12">
         <form method="post" asp-controller="Visitor" asp-action="Capture">
-            
+
             <div id="camera" class="form-group center-block">
 
             </div>
@@ -19,41 +19,67 @@
             </div>
         </form>
         <div class="col-md-12">
-            <input type="button" value="Finish" class="btn btn-success" onclick="location.href='@Url.Action("QrView", "Visitor")'" />
+            <input type="button" value="Finish" class="btn btn-success" onclick="hideAndShow()" />
+        </div>
+    </div>
+    </div>
+
+<div class="row" id="qr" style="display:none">
+    <div class="col-md-12">
+        <div class="col-md-6 col-md-offset-3 center-block">
+            @if (ViewBag.visitor != null)
+            {
+                var name = ViewBag.visitor.FirstName;
+                var lastName = ViewBag.visitor.LastName;
+                var company = ViewBag.visitor.Company;
+                var number = ViewBag.visitor.RandomNumber;
+
+                <p><b>@name  @lastName</b></p>
+                <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
+                <p><b>@number</b></p>
+
+                <button type="button" class="btn btn-default" value="Back" onclick="window.location.href='@Url.Action("Index", "Home")' ">Back</button>
+            }
         </div>
     </div>
 </div>
 
-<!-- First, include the Webcam.js JavaScript Library -->  
-<script src="~/webcam/webcam.js"></script>  
-<!-- Configure a few settings and attach camera -->  
-<script language="JavaScript">  
-    Webcam.set({  
-        width: 320,  
-        height: 240,  
-        image_format: 'jpeg',  
-        jpeg_quality: 90  
-    });  
-    Webcam.attach('#camera');  
-</script>  
-  
-<!-- Code to handle taking the snapshot and displaying it locally -->  
-<script language="JavaScript">  
-    function takePicture() {  
-        // take snapshot and get image data  
-        Webcam.snap(function (data_uri) {  
-            // display results in page  
-            document.getElementById('results').innerHTML =  
-                '<img src="' +  
-                data_uri +  
-                '"/>';  
-  
-            Webcam.upload(data_uri,  
-                '/Visitor/Capture',  
-                function (code, text) {  
-                    alert('Photo Captured');  
-                });  
-        });  
-    }  
-</script>  
-    
+    <!-- First, include the Webcam.js JavaScript Library -->
+    <script src="~/webcam/webcam.js"></script>
+    <!-- Configure a few settings and attach camera -->
+    <script language="JavaScript">
+        Webcam.set({
+            width: 320,
+            height: 240,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach('#camera');
+    </script>
+
+    <!-- Code to handle taking the snapshot and displaying it locally -->
+    <script language="JavaScript">
+        function takePicture() {
+            // take snapshot and get image data
+            Webcam.snap(function (data_uri) {
+                // display results in page
+                document.getElementById('results').innerHTML =
+                    '<img src="' +
+                    data_uri +
+                    '"/>';
+
+                Webcam.upload(data_uri,
+                    '/Visitor/Capture',
+                    function (code, text) {
+                        alert('Photo Captured');
+                    });
+            });
+        }
+
+        function hideAndShow() {
+            document.getElementById("qr").style = "display: block"
+            document.getElementById("pic").style = "display: none"
+
+        }
+    </script>
+

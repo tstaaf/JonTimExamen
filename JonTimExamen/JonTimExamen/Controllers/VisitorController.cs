@@ -56,6 +56,7 @@ namespace JonTimExamen.Controllers
         [HttpPost]
         public IActionResult Capture(Visitor visitor)
         {
+            ViewBag.visitor = visitor;
 
             visitor = db.Visitor.OrderByDescending(d => d.CheckInTime).FirstOrDefault();
 
@@ -90,10 +91,9 @@ namespace JonTimExamen.Controllers
                     }
                 }
             }
-            ViewBag.visitor = visitor;
 
             db.SaveChanges();
-            return RedirectToAction("QrView");
+            return View("Capture");
         }
 
         public IActionResult QrView()

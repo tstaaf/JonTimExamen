@@ -25,20 +25,28 @@
             <b>Visitors checked in now</b>
         </p>
         @foreach (Visitor visitor in Model)
+    {
+        if (visitor.CheckInTime > visitor.CheckOutTime)
         {
-            if (visitor.CheckInTime > visitor.CheckOutTime)
-            {
+        <div class="col-md-12">
+            <div class="col-md-6">
                 <p> Name: @visitor.FirstName @visitor.LastName</p>
                 <p> Id: @visitor.RandomNumber</p>
                 <p> Check In: @visitor.CheckInTime </p>
-                using(Html.BeginForm("CheckOut","Visitor"))
-                {
-                    <input type="hidden" name="RandomNumberInput" value="@visitor.RandomNumber" />
-                    <input class="btn btn-xs btn-danger" type="submit" value="Check out this visitor" />
-                }
-                <hr/>
-            }
-        }
+            </div>
+            <div class="col-md-6">
+                <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" width="200px" align="right" />
+            </div>
+        </div>
+            <br/>
+        using (Html.BeginForm("CheckOut", "Visitor"))
+        {
+            <input type="hidden" name="RandomNumberInput" value="@visitor.RandomNumber" />
+            <input class="btn btn-xs btn-danger" type="submit" value="Check out this visitor" />
+    }
+    <hr />
+}
+}
 
 
     </div>
