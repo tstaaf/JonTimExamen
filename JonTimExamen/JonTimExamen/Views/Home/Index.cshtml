@@ -2,35 +2,35 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-6" style="text-align:center;">
+<section class="hero">
+    <div class="hero-inner">
+        <h1>Welcome!</h1>
+        <h2>Check in by pressing the button below.</h2>
         <a class="btn" asp-area="" asp-controller="Visitor" asp-action="Index">
-            <p style="">Check in</p>
-            <img class="img-responsive" src="images/meeting.jpg" style="border: 1px solid; height: 250px; width: 350px;" />
+            Check in
         </a>
     </div>
-
-    <div class="col-md-6" style="text-align:center;">
+    <div id="LogoutBtn" class="col-md-1" style="text-align:center; position: absolute; right: 15px; top: 520px;">
         <a class="btn" asp-area="" asp-controller="Visitor" asp-action="CheckOut">
-            <p>Check out</p>
-            <img class="img-responsive" src="images/leave.jpg" style="border: 1px solid; height: 250px; width: 350px;" />
+            Check out
         </a>
     </div>
 
 
-    <div class="col-md-1" style="text-align:center; height: 50px;  position: absolute; right: 15px; top: 10px;">
+    <div id="LoginBtn" class="col-md-1" style="text-align:center; height: 50px;  position: absolute; right: 15px; top: 10px;">
         @{
             if (User.Identity.IsAuthenticated)
             {
-                <a asp-controller="Visitor" asp-action="History" class="btn btn-success">Settings</a>
+                <a asp-controller="Visitor" asp-action="History" class="btn">Settings</a>
             }
 
             else
             {
-                <a class="btn btn-success" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                <a class="btn" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
             }
         }
     </div>
-</div>
+</section>
