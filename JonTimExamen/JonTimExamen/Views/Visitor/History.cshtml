@@ -24,11 +24,18 @@
         {
             if (visitor.CheckInTime < visitor.CheckOutTime)
             {
+        <div class="col-md-12">
+            <div class="col-md-3">
                 <p> Name: @visitor.FirstName @visitor.LastName</p>
                 <p> Id: @visitor.RandomNumber</p>
                 <p> Check In: @visitor.CheckInTime </p>
                 <p> Check Out: @visitor.CheckOutTime </p>
-                <hr />
+            </div>
+            <div class="col-md-6">
+                <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" width="200px" align="right" />
+            </div>
+        </div>
+                <hr/>
             }
         }
     </div>
