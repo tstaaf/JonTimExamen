@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
@@ -31,11 +32,10 @@ namespace JonTimExamen.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
-        public IActionResult CheckIn(Visitor visitor, string name)
+        public IActionResult CheckIn(Visitor visitor)
         {
-
             db.Visitor.Add(visitor);
             visitor.CheckInTime = DateTime.Now;
 
@@ -44,10 +44,23 @@ namespace JonTimExamen.Controllers
             r.NextBytes(buffer);
             visitor.RandomNumber = BitConverter.ToString(buffer);
 
+            //var filePath = Path.Combine(_environment.WebRootPath, "visitorPhotos" + visitor.RandomNumber + ".jpg");
+
             ViewBag.visitor = visitor;
 
+            db.SaveChanges();
+
+            return View("Capture");
+        }
+
+        [HttpPost]
+        public IActionResult Capture(Visitor visitor)
+        {
+
+            visitor = db.Visitor.OrderByDescending(d => d.CheckInTime).FirstOrDefault();
 
             var pictures = HttpContext.Request.Form.Files;
+
             if (pictures != null)
             {
                 foreach (var picture in pictures)
@@ -55,7 +68,7 @@ namespace JonTimExamen.Controllers
                     if (picture.Length > 0)
                     {
                         var pictureName = picture.FileName;
-                        var uniquePictureName = Convert.ToString(Guid.NewGuid());
+                        var uniquePictureName = visitor.RandomNumber;
                         var pictureExtension = Path.GetExtension(pictureName);
 
                         var finalPictureName = string.Concat(uniquePictureName, pictureExtension);
@@ -66,17 +79,26 @@ namespace JonTimExamen.Controllers
                             StoreInFolder(picture, filePath);
                         }
 
-                        // var pictureBytes = System.IO.File.ReadAllBytes(filePath);
-                        //if(pictureBytes != null)
-                        //{
-                        //    StoreInDatabase(pictureBytes);
-                        //}
+                        var imageBytes = System.IO.File.ReadAllBytes(filePath);
+
+                        if (imageBytes != null)
+                        {
+                            string base64String = Convert.ToBase64String(imageBytes, 0, imageBytes.Length);
+                            string imageUrl = string.Concat("data:image/jpg;base64,", base64String);
+                            visitor.ImageBase64String = imageUrl;
+                        }
                     }
                 }
             }
-            db.SaveChanges();
+            ViewBag.visitor = visitor;
 
-            return View("QrView");
+            db.SaveChanges();
+            return RedirectToAction("QrView");
+        }
+
+        public IActionResult QrView()
+        {
+            return View();
         }
 
         private void StoreInFolder(IFormFile picture, string pictureName)
@@ -139,12 +161,6 @@ namespace JonTimExamen.Controllers
         public IActionResult Print()
         {
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        public IActionResult Capture()
-        {
-            return View();
         }
     }
 }

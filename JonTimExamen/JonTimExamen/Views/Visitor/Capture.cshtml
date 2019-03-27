@@ -1,15 +1,59 @@
-﻿
+﻿@model Visitor
 @{
-    Layout = null;
+
 }
 
-<!DOCTYPE html>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" asp-controller="Visitor" asp-action="Capture">
+            
+            <div id="camera" class="form-group center-block">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Capture</title>
-</head>
-<body>
-</body>
-</html>
+            </div>
+
+            <div id="results" class="form-group center-block">
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-default center-block" value="Take Picture" onclick="takePicture()">Take Picture</button>
+            </div>
+        </form>
+        <div class="col-md-12">
+            <input type="button" value="Finish" class="btn btn-success" onclick="location.href='@Url.Action("QrView", "Visitor")'" />
+        </div>
+    </div>
+</div>
+
+<!-- First, include the Webcam.js JavaScript Library -->  
+<script src="~/webcam/webcam.js"></script>  
+<!-- Configure a few settings and attach camera -->  
+<script language="JavaScript">  
+    Webcam.set({  
+        width: 320,  
+        height: 240,  
+        image_format: 'jpeg',  
+        jpeg_quality: 90  
+    });  
+    Webcam.attach('#camera');  
+</script>  
+  
+<!-- Code to handle taking the snapshot and displaying it locally -->  
+<script language="JavaScript">  
+    function takePicture() {  
+        // take snapshot and get image data  
+        Webcam.snap(function (data_uri) {  
+            // display results in page  
+            document.getElementById('results').innerHTML =  
+                '<img src="' +  
+                data_uri +  
+                '"/>';  
+  
+            Webcam.upload(data_uri,  
+                '/Visitor/Capture',  
+                function (code, text) {  
+                    alert('Photo Captured');  
+                });  
+        });  
+    }  
+</script>  
+    
