@@ -7,40 +7,43 @@
     <div class="col-md-12">
         <form method="post" asp-controller="Visitor" asp-action="Capture">
 
-            <div id="camera" class="form-group center-block">
+            <div class="form-group">
+                <div class="center-block" id="camera">
 
-            </div>
-
-            <div id="results" class="form-group center-block">
+                </div>
             </div>
 
             <div class="form-group">
-                <button type="button" class="btn btn-default center-block" value="Take Picture" onclick="takePicture()">Take Picture</button>
+                <div id="results">
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="btn btn-default center-block" value="Take Picture" onclick="takePicture()">Take a Picture</button>
             </div>
         </form>
         <div class="col-md-12">
-            <input type="button" value="Finish" class="btn btn-success" onclick="hideAndShow()" />
+            <input type="button" value="Finish" class="btn btn-success center-block" onclick="hideAndShow()" />
         </div>
     </div>
     </div>
 
 <div class="row" id="qr" style="display:none">
-    <div class="col-md-12">
-        <div class="col-md-6 col-md-offset-3 center-block">
-            @if (ViewBag.visitor != null)
-            {
-                var name = ViewBag.visitor.FirstName;
-                var lastName = ViewBag.visitor.LastName;
-                var company = ViewBag.visitor.Company;
-                var number = ViewBag.visitor.RandomNumber;
+    <div class="col-md-12 text-center">
+        @if (ViewBag.visitor != null)
+        {
+            var name = ViewBag.visitor.FirstName;
+            var lastName = ViewBag.visitor.LastName;
+            var company = ViewBag.visitor.Company;
+            var number = ViewBag.visitor.RandomNumber;
 
-                <p><b>@name  @lastName</b></p>
-                <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
-                <p><b>@number</b></p>
+            <p><b>@name @lastName</b></p>
+            <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200"/>
+            <p><b>@number</b></p>
 
-                <button type="button" class="btn btn-default" value="Back" onclick="window.location.href='@Url.Action("Index", "Home")' ">Back</button>
-            }
-        </div>
+            <button type="button" class="btn btn-default" value="Back" onclick="window.location.href = '@Url.Action("Index", "Home")' ">Back</button>
+        }
     </div>
 </div>
 
@@ -64,7 +67,7 @@
             Webcam.snap(function (data_uri) {
                 // display results in page
                 document.getElementById('results').innerHTML =
-                    '<img src="' +
+                    '<img class="center-block" src="' +
                     data_uri +
                     '"/>';
 
@@ -77,8 +80,8 @@
         }
 
         function hideAndShow() {
-            document.getElementById("qr").style = "display: block"
-            document.getElementById("pic").style = "display: none"
+            document.getElementById("qr").style = "display: block";
+            document.getElementById("pic").style = "display: none";
 
         }
     </script>
