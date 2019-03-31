@@ -1,6 +1,7 @@
 ﻿@model Visitor
 @{
     ViewData["Title"] = "CheckIn";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
 }
 
 
@@ -67,50 +68,50 @@
 }
 else
 {
-
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+    <section class="hero">
+        <div class="row" style="margin:auto; width:400px">
                 <form method="post" asp-controller="Visitor" asp-action="CheckIn">
 
                     <div class="form-group">
-                        <label asp-for="@Model.FirstName"></label>
+                        <label asp-for="@Model.FirstName">First name</label>
                         <input asp-for="@Model.FirstName" class="form-control" required="required" />
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="@Model.LastName"></label>
+                        <label asp-for="@Model.LastName">Last name</label>
                         <input asp-for="@Model.LastName" class="form-control" required="required" />
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="@Model.Company"></label>
+                        <label asp-for="@Model.Company">Company</label>
                         <input asp-for="@Model.Company" class="form-control" />
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" value="Check In" class="btn btn-success center-block"/>
+                        <input type="submit" value="Check In" class="btn btn-success center-block" />
                     </div>
 
                 </form>
             </div>
-        </div>
+    </section>
 
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            @if (ViewBag.visitor != null)
-            {
-                var name = ViewBag.visitor.FirstName;
-                var lastName = ViewBag.visitor.LastName;
-                var company = ViewBag.visitor.Company;
-                var number = ViewBag.visitor.RandomNumber;
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                @if (ViewBag.visitor != null)
+                {
+                    var name = ViewBag.visitor.FirstName;
+                    var lastName = ViewBag.visitor.LastName;
+                    var company = ViewBag.visitor.Company;
+                    var number = ViewBag.visitor.RandomNumber;
 
-                <p><b>@name  @lastName</b></p>
-                <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
-                <p><b>@number</b></p>
-            }
+                    <p><b>@name  @lastName</b></p>
+                    <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
+                    <p><b>@number</b></p>
+                }
+            </div>
         </div>
-    </div>
-}
+        }
+
 
 
 
