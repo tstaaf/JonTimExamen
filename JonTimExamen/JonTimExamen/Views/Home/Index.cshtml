@@ -6,17 +6,22 @@
 }
 
 <section class="hero">
-    <div class="hero-inner">
-        <h1>Welcome!</h1>
-        <h2>Check in by pressing the button below.</h2>
-        <a class="btn" asp-area="" asp-controller="Visitor" asp-action="Index">
-            Check in
-        </a>
-    </div>
-    <div id="LogoutBtn" class="col-md-1" style="text-align:center; position: absolute; right: 15px; top: 520px;">
-        <a class="btn" asp-area="" asp-controller="Visitor" asp-action="CheckOut">
-            Check out
-        </a>
+    <div class="hero-inner" style="margin: auto">
+        <div class="col-md-12">
+            <h1 style="font-size: 60px">Welcome!</h1>
+            <h2 style="font-size: 35px">Check in by pressing the button below.</h2>
+            <div class="col-md-6">
+                <a class="btn" style="width: 150px" asp-controller="Visitor" asp-action="Index">
+                    Check in
+                </a>
+            </div>
+
+            <div class="col-md-6" id="LogoutBtn">
+                <a class="btn" style="width: 150px" asp-controller="Visitor" asp-action="CheckOut">
+                    Check out
+                </a>
+            </div>
+        </div>
     </div>
 
 

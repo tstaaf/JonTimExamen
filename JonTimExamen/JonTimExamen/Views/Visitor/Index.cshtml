@@ -90,13 +90,11 @@ else
                     <div class="form-group">
                         <input type="submit" value="Check In" class="btn btn-success center-block" />
                     </div>
-
                 </form>
             </div>
     </section>
 
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
                 @if (ViewBag.visitor != null)
                 {
                     var name = ViewBag.visitor.FirstName;
@@ -108,7 +106,6 @@ else
                     <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
                     <p><b>@number</b></p>
                 }
-            </div>
         </div>
         }
 

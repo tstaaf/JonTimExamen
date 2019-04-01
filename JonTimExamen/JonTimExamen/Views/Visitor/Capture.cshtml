@@ -5,7 +5,7 @@
 }
 
 <section class="hero">
-    <div class="row" id="pic">
+    <div class="row" id="pic" style="margin: auto">
         <div class="col-md-12">
             <form method="post" asp-controller="Visitor" asp-action="Capture">
 
@@ -21,71 +21,41 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <button type="button" class="btn btn-default center-block" value="Take Picture" onclick="takePicture()">Take a Picture</button>
+                <div id="pictureButton" class="form-group">
+                    <button type="button" class="btn btn-default center-block" value="Take Picture" style="width:150px" onclick="takePicture(); removeAndShowButtons()">Take a Picture</button>
                 </div>
             </form>
-            <div class="col-md-12">
+            <div id="finishButton" class="col-md-12" style="display:none">
                 <input type="button" value="Finish" class="btn btn-success center-block" onclick="hideAndShow()" />
             </div>
         </div>
     </div>
 
-    <div class="row" id="qr" style="display:none">
-        <div class="col-md-12 text-center">
-            @if (ViewBag.visitor != null)
-            {
-                var name = ViewBag.visitor.FirstName;
-                var lastName = ViewBag.visitor.LastName;
-                var company = ViewBag.visitor.Company;
-                var number = ViewBag.visitor.RandomNumber;
+    <div class="row" id="qr" style="display:none;">
+        @if (ViewBag.visitor != null)
+        {
+            var name = ViewBag.visitor.FirstName;
+            var lastName = ViewBag.visitor.LastName;
+            var company = ViewBag.visitor.Company;
+            var number = ViewBag.visitor.RandomNumber;
 
-                <p><b>@name @lastName</b></p>
-                <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
-                <p><b>@number</b></p>
-
-                <button type="button" class="btn btn-default" value="Back" onclick="window.location.href = '@Url.Action("Index", "Home")' ">Back</button>
-            }
-        </div>
+            <p><b>@name @lastName</b></p>
+            <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
+            <p><b>@number</b></p>
+        }
     </div>
+    <div class="row" id="backBtn" style="display: none">
+        <button type="button" class="btn btn-default" value="Back" onclick="textAndBack()">Back</button>
+    </div>
+
+    <div class="hero-inner" id="captureHeroText" style="margin: auto; display: none; text-align: center">
+        <h1 id="captureHeroH1" style="display: none">Thank you</h1>
+        <h1 id="captureHeroH2" style="display: none">Dont forget to checkout when leaving</h1>
+    </div>
+
 </section>
 
-    <!-- First, include the Webcam.js JavaScript Library -->
-    <script src="~/webcam/webcam.js"></script>
-    <!-- Configure a few settings and attach camera -->
-    <script language="JavaScript">
-        Webcam.set({
-            width: 320,
-            height: 240,
-            image_format: 'jpeg',
-            jpeg_quality: 90
-        });
-        Webcam.attach('#camera');
-    </script>
+<script src="~/webcam/webcam.js"></script>
+<script src="~/js/site.js"></script>
 
-    <!-- Code to handle taking the snapshot and displaying it locally -->
-    <script language="JavaScript">
-        function takePicture() {
-            // take snapshot and get image data
-            Webcam.snap(function (data_uri) {
-                // display results in page
-                document.getElementById('results').innerHTML =
-                    '<img class="center-block" src="' +
-                    data_uri +
-                    '"/>';
-
-                Webcam.upload(data_uri,
-                    '/Visitor/Capture',
-                    function (code, text) {
-                        alert('Photo Captured');
-                    });
-            });
-        }
-
-        function hideAndShow() {
-            document.getElementById("qr").style = "display: block";
-            document.getElementById("pic").style = "display: none";
-
-        }
-    </script>
 

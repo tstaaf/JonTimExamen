@@ -1,14 +1,19 @@
 ﻿@model Visitor
 @{
     ViewData["Title"] = "CheckOut";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <form method="post" asp-controller="Visitor" asp-action="CheckOut">
+<section class="hero">
+    <div class="row" id="formDiv" style="margin: auto; text-align: center">
+        <h2>Enter your visitor ID to check out</h2>
+        @*<a id="infoLink" onclick="showInfoText()">(Can't find your visitor id?)</a>
+        <p id="infoText" style="display: none"> You can find your visitor ID at the bottom of your visitor badge.
+        It should look something like this : A9-0D-82-4F-B9</p>*@
+        <br />
+        <form method="post" id="checkoutForm" asp-controller="Visitor" asp-action="CheckOut">
 
-            <div class="form-group">
-                <label asp-for="@Model.RandomNumber"></label>
+            <div class="form-group" style="width: 400px">
                 <input asp-for="@Model.RandomNumber" class="form-control" name="RandomNumberInput" id="RandomNumberInput" runat="server" />
             </div>
 
@@ -17,10 +22,15 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Check out" class="btn btn-success center-block" />
+                <button type="button" class="btn btn-success center-block" value="Check out" style="width:150px" onclick="checkoutButtonClicked()">Check out</button>
             </div>
-
         </form>
-
     </div>
-</div>
+
+    <div class="hero-inner" id="checkoutHeroText" style="margin: auto; display: none; text-align: center">
+        <h1 id="checkoutHeroH1" style="display: none">Thank you for visiting *Company</h1>
+    </div>
+
+</section>
+
+<script src="~/js/site.js"></script>

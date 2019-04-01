@@ -74,9 +74,8 @@
     border-radius: 20px;
     background-color: rgba(92,184,92, 0.4);
 }
-#LogoutBtn .btn {
-    display: block;
-    width: 100px;
+#LogoutBtn .btn{
+    display: inline-block;
     /* Text styles */
     color: white;
     text-decoration: none;
@@ -97,6 +96,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
 .hero .btn {
     /* Positioning and sizing */
     display: block;
@@ -112,6 +112,4 @@
     border-radius: 20px;
     background-color: rgba(92,184,92, 0.8);
 }
-.hero-inner {
-    margin-left: 150px;
-}
+
