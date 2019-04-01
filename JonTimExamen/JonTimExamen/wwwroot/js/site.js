@@ -51,6 +51,8 @@ function checkoutButtonClicked() {
     }, 4500)
 }
 
-//function showInfoText() {
-//    $("#infoText")
-//}
+function showInfoText() {
+    $("#infoLink").on('click', function () {
+        $("#Info").toggleClass("hidden");
+    });
+}
