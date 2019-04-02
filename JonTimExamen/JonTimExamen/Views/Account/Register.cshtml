@@ -4,10 +4,28 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
-
 <div class="row">
+    <div class="col-md-6">
+        <div class="vertical-menu">
+            <a href="@Url.Action("History", "Visitor")">
+                <span>History</span>
+            </a>
+            <a href="@Url.Action("CurrentVisitors", "Visitor")">
+                <span>Current Visitors</span>
+            </a>
+            <a href="@Url.Action("Index", "Visitor")">
+                <span>Check in visitor</span>
+            </a>
+            <a href="@Url.Action("Register", "Account")" class="active">
+                <span>Register new admin</span>
+            </a>
+            <a href="@Url.Action("LogOut", "Account")">Log Out</a>
+        </div>
+    </div>
+
     <form class="col col-md-6" asp-controller="Account" asp-action="Register" method="post">
+        <h2>Register</h2>
+        <br />
         <div class="form-group">
             <label asp-for="Username"></label>
             <input asp-for="Username" class="form-control" />

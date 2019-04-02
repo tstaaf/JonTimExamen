@@ -16,29 +16,32 @@
             <a href="@Url.Action("Index", "Visitor")">
                 <span>Check in visitor</span>
             </a>
+            <a href="@Url.Action("Register", "Account")">
+                <span>Register new admin</span>
+            </a>
             <a href="@Url.Action("LogOut", "Account")">Log Out</a>
         </div>
     </div>
 
     <div class="col-md-6">
-        <p style="font-size: 20px">
-            <b>Visitors checked in now</b>
-        </p>
+        <h2>Visitors checked in now</h2>
+        <br />
+
         @foreach (Visitor visitor in Model)
     {
         if (visitor.CheckInTime > visitor.CheckOutTime)
         {
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <p> Name: @visitor.FirstName @visitor.LastName</p>
-                <p> Id: @visitor.RandomNumber</p>
-                <p> Check In: @visitor.CheckInTime </p>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <p> Name: @visitor.FirstName @visitor.LastName</p>
+                    <p> Id: @visitor.RandomNumber</p>
+                    <p> Check In: @visitor.CheckInTime </p>
+                </div>
+                <div class="col-md-6">
+                    <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" width="200px" align="right" />
+                </div>
             </div>
-            <div class="col-md-6">
-                <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" width="200px" align="right" />
-            </div>
-        </div>
-            <br/>
+            <br />
         using (Html.BeginForm("CheckOut", "Visitor"))
         {
             <input type="hidden" name="RandomNumberInput" value="@visitor.RandomNumber" />

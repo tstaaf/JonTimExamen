@@ -18,14 +18,17 @@
                 <a href="@Url.Action("Index", "Visitor")" class="active">
                     <span>Check in visitor</span>
                 </a>
+                <a href="@Url.Action("Register", "Account")">
+                    <span>Register new admin</span>
+                </a>
                 <a href="@Url.Action("LogOut", "Account")">Log Out</a>
             </div>
         </div>
 
         <div class="col-md-6">
-            <p style="font-size: 20px">
-                <b>Check in visitor</b>
-            </p>
+            <h2>Check in visitor</h2>
+            <br />
+
             <form method="post" asp-controller="Visitor" asp-action="CheckIn">
 
                 <div class="form-group">

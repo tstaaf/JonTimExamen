@@ -15,29 +15,34 @@
             <a href="@Url.Action("Index", "Visitor")">
                 <span>Check in visitor</span>
             </a>
+            <a href="@Url.Action("Register", "Account")">
+                <span>Register new admin</span>
+            </a>
             <a href="@Url.Action("LogOut", "Account")">Log Out</a>
         </div>
     </div>
     <div class="col-md-6">
-        <p style="font-size: 20px;"><b>Visitor history</b></p>
+        <h2>Visitor history</h2>
+        <br />
+
         @foreach (Visitor visitor in Model)
+    {
+        if (visitor.CheckInTime < visitor.CheckOutTime)
         {
-            if (visitor.CheckInTime < visitor.CheckOutTime)
-            {
-        <div class="col-md-12">
-            <div class="col-md-3">
-                <p> Name: @visitor.FirstName @visitor.LastName</p>
-                <p> Id: @visitor.RandomNumber</p>
-                <p> Check In: @visitor.CheckInTime </p>
-                <p> Check Out: @visitor.CheckOutTime </p>
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <p> Name: @visitor.FirstName @visitor.LastName</p>
+                    <p> Id: @visitor.RandomNumber</p>
+                    <p> Check In: @visitor.CheckInTime </p>
+                    <p> Check Out: @visitor.CheckOutTime </p>
+                </div>
+                <div class="col-md-6">
+                    <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" width="200px" align="right" />
+                </div>
             </div>
-            <div class="col-md-6">
-                <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" width="200px" align="right" />
-            </div>
-        </div>
-                <hr/>
-            }
-        }
+            <hr />
+    }
+}
     </div>
 
 </div>
