@@ -46,14 +46,18 @@ namespace JonTimExamen.Controllers
         [HttpPost]
         public IActionResult CheckIn(Visitor visitor)
         {
-            //for(var x = false; )
 
             db.Visitor.Add(visitor);
             visitor.CheckInTime = DateTime.Now;
+            
             visitor.RandomNumber = CalculateRandomNumber();
-            //var numberExists = BitConverter.ToString(buffer);
-            //db.Visitor.SingleOrDefault(x => x.RandomNumber == numberExists);
+            bool number = db.Visitor.Any(u => u.RandomNumber == visitor.RandomNumber);
 
+            if(number == true)
+            {
+                visitor.RandomNumber = string.Empty;
+                visitor.RandomNumber = CalculateRandomNumber();
+            }
 
             ViewBag.visitor = visitor;
 
