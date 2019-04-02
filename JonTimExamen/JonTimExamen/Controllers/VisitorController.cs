@@ -32,7 +32,17 @@ namespace JonTimExamen.Controllers
         {
             return View();
         }
-        
+
+        public string CalculateRandomNumber()
+        {
+            byte[] buffer = new byte[5];
+            Random r = new Random();
+            r.NextBytes(buffer);
+            var randomNumber = BitConverter.ToString(buffer);
+
+            return randomNumber;
+        }
+
         [HttpPost]
         public IActionResult CheckIn(Visitor visitor)
         {
@@ -40,13 +50,10 @@ namespace JonTimExamen.Controllers
 
             db.Visitor.Add(visitor);
             visitor.CheckInTime = DateTime.Now;
-
-            byte[] buffer = new byte[5];
-            Random r = new Random();
-            r.NextBytes(buffer);
+            visitor.RandomNumber = CalculateRandomNumber();
             //var numberExists = BitConverter.ToString(buffer);
             //db.Visitor.SingleOrDefault(x => x.RandomNumber == numberExists);
-            visitor.RandomNumber = BitConverter.ToString(buffer);
+
 
             ViewBag.visitor = visitor;
 
