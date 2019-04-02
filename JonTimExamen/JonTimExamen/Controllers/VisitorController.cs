@@ -36,15 +36,17 @@ namespace JonTimExamen.Controllers
         [HttpPost]
         public IActionResult CheckIn(Visitor visitor)
         {
+            //for(var x = false; )
+
             db.Visitor.Add(visitor);
             visitor.CheckInTime = DateTime.Now;
 
             byte[] buffer = new byte[5];
             Random r = new Random();
             r.NextBytes(buffer);
+            //var numberExists = BitConverter.ToString(buffer);
+            //db.Visitor.SingleOrDefault(x => x.RandomNumber == numberExists);
             visitor.RandomNumber = BitConverter.ToString(buffer);
-
-            //var filePath = Path.Combine(_environment.WebRootPath, "visitorPhotos" + visitor.RandomNumber + ".jpg");
 
             ViewBag.visitor = visitor;
 
@@ -118,14 +120,15 @@ namespace JonTimExamen.Controllers
             // var visitorId = db.Visitor.OrderByDescending(v => v.RandomNumber).Select(v => v.RandomNumber).FirstOrDefault();
             var itemToEdit = db.Visitor.SingleOrDefault(x => x.RandomNumber == rnum);
 
-            if (itemToEdit.CheckInTime > itemToEdit.CheckOutTime)
+            if (itemToEdit != null && itemToEdit.CheckInTime > itemToEdit.CheckOutTime)
             {
                 itemToEdit.CheckOutTime = DateTime.Now;
             }
 
             else
             {
-                return RedirectToAction("Index");
+                ViewBag.error = "Wrong visitor ID";
+                return View("Checkout");
             }
 
 
@@ -137,7 +140,7 @@ namespace JonTimExamen.Controllers
             }
 
 
-            return RedirectToAction("Index", "Home");
+            return View("Thx");
         }
         [Authorize]
         public IActionResult History(Visitor visitor)

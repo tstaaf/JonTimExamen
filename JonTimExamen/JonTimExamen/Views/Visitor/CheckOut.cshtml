@@ -8,31 +8,34 @@
     <div class="row" id="formDiv" style="margin: auto; text-align: center">
         <h2>Enter your visitor ID to check out</h2>
         <br />
-        <form method="post" id="checkoutForm" asp-controller="Visitor" asp-action="CheckOut">
+        <form method="post" asp-controller="Visitor" asp-action="CheckOut">
+
+            <div><p style="color: red; font-size: 25px">@ViewBag.error</p></div>
 
             <div class="form-group">
-                <input asp-for="@Model.RandomNumber" class="form-control" name="RandomNumberInput" id="RandomNumberInput" runat="server" />
+                <input required="required" asp-for="@Model.RandomNumber" class="form-control" name="RandomNumberInput" id="RandomNumberInput" runat="server" />
             </div>
-            <a id="infoLink" onclick="showInfoText()">(Can't find your visitor id?)</a>
+
+            <p id="infoLink" style="text-decoration: underline" onclick="showInfoText()">
+            (Can't find your visitor id?)
+            </p>
+
             <div id="Info" class="hidden" style="width: 400px">
                 <p id="infoText">
                     You can find your visitor ID at the bottom of your visitor badge.
                     It should look something like this : A9-0D-82-4F-B9
                 </p>
             </div>
+
             <div class="form-group">
                 <label name="ErrorLabel"></label>
             </div>
 
             <div class="form-group">
-                <button type="button" class="btn btn-success center-block" value="Check out" style="width:150px" onclick="checkoutButtonClicked()">Check out</button>
+                <button type="submit" class="btn btn-success center-block" value="Check out" style="width:150px">Check out</button>
             </div>
         </form>
 
-    </div>
-
-    <div class="hero-inner" id="checkoutHeroText" style="margin: auto; display: none; text-align: center">
-        <h1 id="checkoutHeroH1" style="display: none">Thank you for visiting *Company</h1>
     </div>
 
 </section>

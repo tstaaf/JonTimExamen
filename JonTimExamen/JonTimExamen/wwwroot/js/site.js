@@ -42,17 +42,20 @@ function textAndBack() {
     }, 4500)
 }
 
-function checkoutButtonClicked() {
-    $("#formDiv").hide();
+function showThxText() {
     $("#checkoutHeroText").show();
-    $("#checkoutHeroH1").fadeIn(1500);
-    setTimeout(function () {
-        $("#checkoutForm").submit();
-    }, 4500)
-}
+        $("#checkoutHeroH1").fadeIn(1500);
+        setTimeout(function () {
+            window.location = "/Home/Index";
+        }, 4500)
+    }
 
 function showInfoText() {
     $("#infoLink").on('click', function () {
         $("#Info").toggleClass("hidden");
     });
+}
+
+function showLoginWarning() {
+    alert("Warning! This option is for employees only!")
 }
