@@ -1,48 +1,51 @@
 ﻿@model List<Visitor>
 @{
     ViewData["Title"] = "History";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
 }
 
-<div class="row">
+<section class="hero">
     <div class="col-md-6">
         <div class="vertical-menu">
-            <a href="@Url.Action("History", "Visitor")" class="active">
-                <span>History</span>
-            </a>
-            <a href="@Url.Action("CurrentVisitors", "Visitor")">
-                <span>Current Visitors</span>
-            </a>
-            <a href="@Url.Action("Index", "Visitor")">
-                <span>Check in visitor</span>
-            </a>
-            <a href="@Url.Action("Register", "Account")">
-                <span>Register new admin</span>
-            </a>
-            <a href="@Url.Action("LogOut", "Account")">Log Out</a>
+            <nav class="nav">
+                <a href="@Url.Action("History", "Visitor")" class="active">
+                    <span>History</span>
+                </a>
+                <a href="@Url.Action("CurrentVisitors", "Visitor")">
+                    <span>Current Visitors</span>
+                </a>
+                <a href="@Url.Action("Index", "Visitor")">
+                    <span>Check in visitor</span>
+                </a>
+                <a href="@Url.Action("Register", "Account")">
+                    <span>Register new admin</span>
+                </a>
+                <a href="@Url.Action("LogOut", "Account")">Log Out</a>
+            </nav>
         </div>
     </div>
-    <div class="col-md-6">
+
+    <div class="col-md-6" style="height:700px; overflow-y:scroll;">
         <h2>Visitor history</h2>
         <br />
 
         @foreach (Visitor visitor in Model)
-    {
-        if (visitor.CheckInTime < visitor.CheckOutTime)
         {
-            <div class="col-md-12">
-                <div class="col-md-3">
-                    <p> Name: @visitor.FirstName @visitor.LastName</p>
-                    <p> Id: @visitor.RandomNumber</p>
-                    <p> Check In: @visitor.CheckInTime </p>
-                    <p> Check Out: @visitor.CheckOutTime </p>
+            if (visitor.CheckInTime < visitor.CheckOutTime)
+            {
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <p><b> Name: @visitor.FirstName @visitor.LastName</b></p>
+                        <p><b> Id: @visitor.RandomNumber</b></p>
+                        <p><b> Check In: @visitor.CheckInTime</b></p>
+                        <p><b> Check Out: @visitor.CheckOutTime</b></p>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" style="width: 200px" align="right" />
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" width="200px" align="right" />
-                </div>
-            </div>
-            <hr />
-    }
-}
+                <hr />
+            }
+        }
     </div>
-
-</div>
+</section>

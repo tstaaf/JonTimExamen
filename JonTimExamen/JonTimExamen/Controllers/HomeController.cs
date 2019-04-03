@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using JonTimExamen.Models;
 using JonTimExamen.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace JonTimExamen.Controllers
 {
@@ -30,10 +31,24 @@ namespace JonTimExamen.Controllers
             db.SaveChanges();
         }
 
+        public async Task Seed()
+        {
+            if (!await db.Users.AnyAsync())
+            {
+                var user = new Employee()
+                {
+                    UserName = "admin"
+                };
+                await userManager.CreateAsync(user, "Admin1!");
+                db.SaveChanges();
+            }
+        }
+
 
         public async Task<IActionResult> Index()
         {
             Employee employee = await userManager.GetUserAsync(User);
+            await Seed();
             return View(employee);
         }
 

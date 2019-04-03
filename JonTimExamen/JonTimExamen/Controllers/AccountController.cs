@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using JonTimExamen.Data;
 using JonTimExamen.Models;
 using JonTimExamen.RequestObjects;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace JonTimExamen.Controllers
 {
@@ -36,6 +36,7 @@ namespace JonTimExamen.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Register()
         {
             return View();

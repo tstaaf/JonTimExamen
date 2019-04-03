@@ -53,7 +53,7 @@ namespace JonTimExamen.Controllers
             visitor.RandomNumber = CalculateRandomNumber();
             bool number = db.Visitor.Any(u => u.RandomNumber == visitor.RandomNumber);
 
-            if(number == true)
+            while(number == true)
             {
                 visitor.RandomNumber = string.Empty;
                 visitor.RandomNumber = CalculateRandomNumber();
@@ -153,6 +153,7 @@ namespace JonTimExamen.Controllers
 
             return View("Thx");
         }
+
         [Authorize]
         public IActionResult History(Visitor visitor)
         {

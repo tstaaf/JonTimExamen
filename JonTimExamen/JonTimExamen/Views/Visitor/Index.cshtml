@@ -1,31 +1,34 @@
 ﻿@model Visitor
 @{
     ViewData["Title"] = "CheckIn";
+    Layout = "~/Views/Shared/_IndexLayout.cshtml";
 }
 
 
 @if (User.Identity.IsAuthenticated)
 {
-    <div class="row">
+    <section class="hero">
         <div class="col-md-6">
             <div class="vertical-menu">
-                <a href="@Url.Action("History", "Visitor")">
-                    <span>History</span>
-                </a>
-                <a href="@Url.Action("CurrentVisitors", "Visitor")">
-                    <span>Current Visitors</span>
-                </a>
-                <a href="@Url.Action("Index", "Visitor")" class="active">
-                    <span>Check in visitor</span>
-                </a>
-                <a href="@Url.Action("Register", "Account")">
-                    <span>Register new admin</span>
-                </a>
-                <a href="@Url.Action("LogOut", "Account")">Log Out</a>
+                <nav class="nav">
+                    <a href="@Url.Action("History", "Visitor")">
+                        <span>History</span>
+                    </a>
+                    <a href="@Url.Action("CurrentVisitors", "Visitor")">
+                        <span>Current Visitors</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Visitor")" class="active">
+                        <span>Check in visitor</span>
+                    </a>
+                    <a href="@Url.Action("Register", "Account")">
+                        <span>Register new admin</span>
+                    </a>
+                    <a href="@Url.Action("LogOut", "Account")">Log Out</a>
+                </nav>
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6" style="width:400px">
             <h2>Check in visitor</h2>
             <br />
 
@@ -52,49 +55,35 @@
             </form>
         </div>
 
-        <div class="col-md-6 col-md-offset-6">
-            @if (ViewBag.visitor != null)
-            {
-                var name = ViewBag.visitor.FirstName;
-                var lastName = ViewBag.visitor.LastName;
-                var company = ViewBag.visitor.Company;
-                var number = ViewBag.visitor.RandomNumber;
-
-                <p><b>@name  @lastName</b></p>
-                <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
-                <p><b>@number</b></p>
-            }
-        </div>
-    </div>
+    </section>
 }
 else
 {
-    Layout = "~/Views/Shared/_IndexLayout.cshtml";
 
     <section class="hero">
         <div class="row" style="margin:auto; width:400px">
-                <form method="post" asp-controller="Visitor" asp-action="CheckIn">
+            <form method="post" asp-controller="Visitor" asp-action="CheckIn">
 
-                    <div class="form-group">
-                        <label asp-for="@Model.FirstName">First name</label>
-                        <input asp-for="@Model.FirstName" class="form-control" required="required" />
-                    </div>
+                <div class="form-group">
+                    <label asp-for="@Model.FirstName">First name</label>
+                    <input asp-for="@Model.FirstName" class="form-control" required="required" />
+                </div>
 
-                    <div class="form-group">
-                        <label asp-for="@Model.LastName">Last name</label>
-                        <input asp-for="@Model.LastName" class="form-control" required="required" />
-                    </div>
+                <div class="form-group">
+                    <label asp-for="@Model.LastName">Last name</label>
+                    <input asp-for="@Model.LastName" class="form-control" required="required" />
+                </div>
 
-                    <div class="form-group">
-                        <label asp-for="@Model.Company">Company</label>
-                        <input asp-for="@Model.Company" class="form-control" />
-                    </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Company">Company</label>
+                    <input asp-for="@Model.Company" class="form-control" />
+                </div>
 
-                    <div class="form-group">
-                        <input type="submit" value="Check In" class="btn btn-success center-block" />
-                    </div>
-                </form>
-            </div>
+                <div class="form-group">
+                    <input type="submit" value="Check In" class="btn btn-success center-block" />
+                </div>
+            </form>
+        </div>
     </section>
 }
 
