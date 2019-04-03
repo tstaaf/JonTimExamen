@@ -6,30 +6,31 @@
 
 <section class="hero">
 
-        <div class="col-md-6" >
-            <div class="vertical-menu">
-                <nav class="nav">
-                    <a href="@Url.Action("History", "Visitor")">
-                        <span>History</span>
-                    </a>
-                    <a href="@Url.Action("CurrentVisitors", "Visitor")" class="active">
-                        <span>Current Visitors</span>
-                    </a>
-                    <a href="@Url.Action("Index", "Visitor")">
-                        <span>Check in visitor</span>
-                    </a>
-                    <a href="@Url.Action("Register", "Account")">
-                        <span>Register new admin</span>
-                    </a>
-                    <a href="@Url.Action("LogOut", "Account")">Log Out</a>
-                </nav>
-            </div>
+    <div class="col-md-6">
+        <div class="vertical-menu">
+            <nav class="nav">
+                <a href="@Url.Action("History", "Visitor")">
+                    <span>History</span>
+                </a>
+                <a href="@Url.Action("CurrentVisitors", "Visitor")" class="active">
+                    <span>Current Visitors</span>
+                </a>
+                <a href="@Url.Action("Index", "Visitor")">
+                    <span>Check in visitor</span>
+                </a>
+                <a href="@Url.Action("Register", "Account")">
+                    <span>Register new admin</span>
+                </a>
+                <a href="@Url.Action("LogOut", "Account")">Log Out</a>
+            </nav>
         </div>
+    </div>
 
-        <div class="col-md-6" style="height:700px; overflow-y:scroll;">
-            <h2>Visitors checked in now</h2>
-            <br />
+    <div class="col-md-6">
+        <h2>Visitors checked in now</h2>
+        <br />
 
+        <div style="height:700px; overflow-y:scroll;">
             @foreach (Visitor visitor in Model)
             {
                 if (visitor.CheckInTime > visitor.CheckOutTime)
@@ -54,4 +55,5 @@
                 }
             }
         </div>
+    </div>
 </section>

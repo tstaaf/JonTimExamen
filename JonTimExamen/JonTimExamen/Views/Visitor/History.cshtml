@@ -25,27 +25,29 @@
         </div>
     </div>
 
-    <div class="col-md-6" style="height:700px; overflow-y:scroll;">
+    <div class="col-md-6" >
         <h2>Visitor history</h2>
         <br />
 
-        @foreach (Visitor visitor in Model)
-        {
-            if (visitor.CheckInTime < visitor.CheckOutTime)
+        <div style="height:700px; overflow-y:scroll;">
+            @foreach (Visitor visitor in Model)
             {
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        <p><b> Name: @visitor.FirstName @visitor.LastName</b></p>
-                        <p><b> Id: @visitor.RandomNumber</b></p>
-                        <p><b> Check In: @visitor.CheckInTime</b></p>
-                        <p><b> Check Out: @visitor.CheckOutTime</b></p>
+                if (visitor.CheckInTime < visitor.CheckOutTime)
+                {
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <p><b> Name: @visitor.FirstName @visitor.LastName</b></p>
+                            <p><b> Id: @visitor.RandomNumber</b></p>
+                            <p><b> Check In: @visitor.CheckInTime</b></p>
+                            <p><b> Check Out: @visitor.CheckOutTime</b></p>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" style="width: 200px" align="right" />
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <img src="~/visitorPhotos/@(visitor.RandomNumber).jpg" style="width: 200px" align="right" />
-                    </div>
-                </div>
-                <hr />
+                    <hr />
+                }
             }
-        }
+        </div>
     </div>
 </section>
