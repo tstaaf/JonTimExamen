@@ -40,7 +40,8 @@
             var number = ViewBag.visitor.RandomNumber;
 
             <p><b>@name @lastName</b></p>
-            <qrcode content="@number,  @name,  @lastName,  @company" width="200" height="200" />
+            <p><b>@company</b></p>
+            <qrcode content="@number" width="200" height="200" />
             <p><b>@number</b></p>
         }
     </div>
